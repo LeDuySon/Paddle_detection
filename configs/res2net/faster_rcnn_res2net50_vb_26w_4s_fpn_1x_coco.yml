@@ -1,0 +1,29 @@
+FasterRCNN:
+  backbone: Res2Net
+  bbox_head: BBoxHead
+  bbox_post_process: BBoxPostProcess
+  neck: FPN
+  rpn_head: RPNHead
+Res2Net:
+  depth: 50
+  freeze_at: 0
+  norm_type: bn
+  num_stages: 4
+  return_idx:
+  - 0
+  - 1
+  - 2
+  - 3
+  scales: 4
+  variant: b
+  width: 26
+TrainReader:
+  batch_size: 2
+_BASE_:
+- ../datasets/vtx_coco_detection.yml
+- ../runtime.yml
+- ../faster_rcnn/_base_/optimizer_1x.yml
+- ../faster_rcnn/_base_/faster_rcnn_r50_fpn.yml
+- ../faster_rcnn/_base_/faster_fpn_reader.yml
+pretrain_weights: https://paddledet.bj.bcebos.com/models/pretrained/Res2Net50_26w_4s_pretrained.pdparams
+weights: output/faster_rcnn_res2net50_vb_26w_4s_fpn_1x_coco/model_final

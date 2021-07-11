@@ -1,0 +1,39 @@
+FCOSHead:
+  centerness_on_reg: true
+  fcos_feat:
+    feat_in: 256
+    feat_out: 256
+    name: FCOSFeat
+    norm_type: gn
+    num_convs: 4
+    use_dcn: true
+  fcos_loss: FCOSLoss
+  fpn_stride:
+  - 8
+  - 16
+  - 32
+  - 64
+  - 128
+  norm_reg_targets: true
+  num_classes: 80
+  prior_prob: 0.01
+ResNet:
+  dcn_v2_stages:
+  - 1
+  - 2
+  - 3
+  depth: 50
+  freeze_at: 0
+  norm_type: bn
+  num_stages: 4
+  return_idx:
+  - 1
+  - 2
+  - 3
+_BASE_:
+- ../datasets/vtx_coco_detection.yml
+- ../runtime.yml
+- _base_/fcos_r50_fpn.yml
+- _base_/optimizer_1x.yml
+- _base_/fcos_reader.yml
+weights: output/fcos_dcn_r50_fpn_1x_coco/model_final
