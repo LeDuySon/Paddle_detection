@@ -58,8 +58,8 @@ def paddle_to_mmdet(file):
         frame_name = "frame_" + "0" * (6 - frame_len) + str(frame_id) + ".txt"
         save_file = os.path.join(save_path, frame_name)
         write_file(val, save_file)
-        if(frame_id == 10):
-            break
+       # if(frame_id == 10):
+       #     break
 
 if __name__ == "__main__":
     print(paddle_to_mmdet(args.pred_path))
