@@ -17,15 +17,22 @@ def read_json(file):
         data = json.load(f)
     return data
 
+
 def write_file(data, file):
     print("Write data to ", file)
     with open(file, "wt") as f:
         for sp in data:
             cls_name = idx2name[int(sp["category_id"])]
-            x, y, w, h = list(map(str, sp["bbox"]))
+            xmin, ymin, xmax, ymax = list(map(str, xywh_to_xyxy(sp["bbox"])))
             score = str(sp["score"])
-            line = cls_name + " " + score + " " + x + " " + y + " " + w + " " + h + "\n"
+            line = cls_name + " " + score + " " + xmin + " " + ymin + " " + xmax + " " + ymax + "\n"
             f.write(line)
+
+def xywh_to_xyxy(coord):
+    x, y, w, h = coord
+    xmin, ymin, xmax, ymax = x, y, x+w, y+h
+    return [xmin, ymin, xmax, ymax]
+
 
 def paddle_to_mmdet(file):
     """

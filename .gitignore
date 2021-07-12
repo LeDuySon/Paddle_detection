@@ -34,7 +34,6 @@ __pycache__/
 /.installed.cfg
 /*.egg
 /.eggs
-/evaluations/
 /dataset/video30p_coco/
 # AUTHORS and ChangeLog will be generated while packaging
 /AUTHORS
